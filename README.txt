@@ -1,2 +1,0 @@
-R bindings for zvec
-
