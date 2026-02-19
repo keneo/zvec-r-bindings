@@ -65,6 +65,12 @@ results <- col_query(col,
 | Maintenance | `col_flush()`, `col_optimize()`, `col_schema()`, `col_stats()` |
 | Setup | `rzvec_install()` |
 
+## See also
+
+[`rszvec`](../rszvec/) — a higher-level wrapper around `rzvec` that hides all
+schema ceremony and returns plain `data.frame`s. If you don't need the full API,
+start there.
+
 ## License
 
 MIT
