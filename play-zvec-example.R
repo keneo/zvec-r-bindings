@@ -15,7 +15,7 @@ schema <- zvec$CollectionSchema(
   vectors = zvec$VectorSchema("embedding", zvec$DataType$VECTOR_FP32, as.integer(4))
 )
 
-col <- zvec$create_and_open(path = "./zvec_example", schema = schema)
+col <- zvec$create_and_open(path = "/tmp/zvec_example", schema = schema)
 
 col$insert(list(
   zvec$Doc(id="doc_1", vectors=dict(embedding=c(0.1,0.2,0.3,0.4))),
@@ -27,4 +27,6 @@ res <- col$query(
   topk = as.integer(10)
 )
 
-res
+for (r in res) cat(r$id, r$score, "\n")
+
+unlink("/tmp/zvec_example", recursive = TRUE)
