@@ -63,6 +63,18 @@ col_query(col, vector_query("embedding", vector = c(0.4, 0.3, 0.3, 0.1)), topk =
 | [`play-rzvec-example.R`](play-rzvec-example.R) | `rzvec` R package |
 | [`play-rszvec-example.R`](play-rszvec-example.R) | `rszvec` R package |
 
+## Platform support
+
+Determined by the `zvec` Python package, which ships binary wheels for:
+
+| Platform | x86_64 | arm64 |
+|---|---|---|
+| Linux | ✅ | ✅ |
+| macOS | — | ✅ |
+| Windows | — | — |
+
+Python 3.10, 3.11, and 3.12 are supported. Python 3.9 and earlier are not.
+
 ## License
 
 MIT
