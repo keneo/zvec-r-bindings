@@ -103,12 +103,19 @@ scripts that run inside it, for validating the packages on Linux ARM64.
 | `docker/test.R` | Full smoke test: installs packages from GitHub, runs end-to-end |
 | `docker/test-all.R` | Installs from mounted repo, runs all 82 tests (rzvec + rszvec) |
 | `docker/ci-test.R` | No-install variant used by CI after packages are pre-installed |
-| `run-tests.sh` | Host-side shortcut: builds the image if needed, then runs `test-all.R` |
+| `run-tests-in-docker.sh` | Builds the image if needed, then runs `test-all.R` inside it |
+| `run-tests-local.sh` | Runs both test suites directly (no Docker; uses local renv + venv) |
 
-**Quickest way to run all tests locally:**
+**Run tests in Docker** (Linux ARM64, clean environment):
 
 ```bash
-./run-tests.sh
+./run-tests-in-docker.sh
+```
+
+**Run tests locally** (faster, uses your installed packages):
+
+```bash
+./run-tests-local.sh
 ```
 
 **Build the base image manually** (one-time):
