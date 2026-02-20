@@ -101,6 +101,33 @@ test_that("rszvec_add_many() works with a matrix (one row per doc)", {
   expect_true("c" %in% res$id)
 })
 
+test_that("rszvec_add_many() inserts all docs across a batch boundary (n > 1000)", {
+  skip_if_no_zvec()
+  n   <- 1001L
+  col <- new_temp_col(dim = 4L)
+  ids <- paste0("doc", seq_len(n))
+  mat <- matrix(runif(n * 4L), nrow = n)
+  rszvec_add_many(col, ids, mat)
+  res <- rszvec_search(col, mat[1L, ], n = n)
+  expect_equal(nrow(res), n)
+})
+
+test_that("rszvec_add_many() respects a custom batch_size", {
+  skip_if_no_zvec()
+  col <- new_temp_col(dim = 4L)
+  rszvec_add_many(col,
+    ids       = c("a", "b", "c"),
+    vectors   = list(VEC_A, VEC_B, VEC_C),
+    batch_size = 1L   # force one doc per insert call
+  )
+  res <- rszvec_search(col, VEC_A, n = 10)
+  expect_setequal(res$id, c("a", "b", "c"))
+})
+
+test_that("rszvec_add_many() default batch_size is 1000", {
+  expect_equal(formals(rszvec_add_many)$batch_size, 1000L)
+})
+
 # --- rszvec_delete ------------------------------------------------------------
 
 test_that("rszvec_delete() removes doc from search results", {
