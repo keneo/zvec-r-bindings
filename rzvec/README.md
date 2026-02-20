@@ -25,7 +25,7 @@ sudo apt install python3-venv python3-dev python3-pip
 
 ```r
 library(rzvec)
-rzvec_install()   # one-time setup; creates ~/.cache/R/rzvec/rzvec-venv
+rzvec_install()   # one-time setup; creates a virtualenv in the R user cache dir
 ```
 
 Alternatively, point reticulate at an existing virtualenv or conda env that
