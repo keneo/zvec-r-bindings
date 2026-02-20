@@ -1,25 +1,21 @@
 task:
   name: Linux x86_64 (Intel)
-  compute_engine_instance:
-    image_project: ubuntu-os-cloud
-    image: family/ubuntu-2204-lts
-    platform: linux
-    machine_type: c2-standard-4
-    disk: 20
+  container:
+    image: rocker/r-ver:4.4
+    cpu: 2
+    memory: 4G
 
   env:
     RENV_CONFIG_ACTIVE: "FALSE"
     GITHUB_PAT: $CIRRUS_REPO_CLONE_TOKEN
 
-  cpu_info_script: grep -m1 "model name" /proc/cpuinfo
-
   install_system_script: |
     apt-get update -qq
-    apt-get install -y r-base python3-venv python3-dev python3-pip
+    apt-get install -y python3-venv python3-dev python3-pip git cmake ninja-build g++
 
   install_r_packages_script: |
     Rscript -e "
-      install.packages('remotes', repos='https://cloud.r-project.org')
+      install.packages('remotes')
       remotes::install_github('keneo/play-zvec/rzvec')
       remotes::install_github('keneo/play-zvec/rszvec')
     "
