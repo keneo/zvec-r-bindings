@@ -61,6 +61,12 @@ rszvec_add_many(col, ids = c("doc_1", "doc_2"), vectors = mat)
 | `rszvec_delete(col, id)` | Delete a document by ID |
 | `rszvec_install(...)` | One-time Python/virtualenv setup |
 
+## Platform note
+
+The Linux x86_64 wheel for `zvec` requires AVX-512 (Intel only). It will crash
+with SIGILL on AMD processors. Linux ARM64 and macOS ARM64 have no such
+restriction.
+
 ## See also
 
 [`rzvec`](../rzvec/) — the full zvec API for R, with control over schemas,

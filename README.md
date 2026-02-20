@@ -69,11 +69,15 @@ Determined by the `zvec` Python package, which ships binary wheels for:
 
 | Platform | x86_64 | arm64 |
 |---|---|---|
-| Linux | ✅ | ✅ |
+| Linux | ⚠️ Intel + AVX-512 only | ✅ |
 | macOS | — | ✅ |
 | Windows | — | — |
 
 Python 3.10, 3.11, and 3.12 are supported. Python 3.9 and earlier are not.
+
+The Linux x86_64 wheel is compiled by Alibaba with Intel-specific instructions and
+requires AVX-512 support. It will crash with SIGILL on AMD processors and older
+Intel CPUs. ARM64 Linux has no such restriction.
 
 On Linux, the following system packages must be installed before calling
 `rszvec_install()` / `rzvec_install()`:
