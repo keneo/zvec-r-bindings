@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")"
 
 if ! docker image inspect play-zvec-test > /dev/null 2>&1; then
   echo "Building play-zvec-test image..."

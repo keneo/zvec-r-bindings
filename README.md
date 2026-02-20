@@ -94,22 +94,30 @@ sudo apt install python3-venv python3-dev python3-pip
 
 ## Docker smoke test
 
-The [`docker/`](docker/) folder contains a base image and two test scripts for
-validating the packages on Linux ARM64.
+The [`docker/`](docker/) folder contains the Docker image definition and R
+scripts that run inside it, for validating the packages on Linux ARM64.
 
 | File | Purpose |
 |---|---|
-| `Dockerfile` | Base image (`rocker/r-ver:4.4` + Python deps + `remotes`) |
-| `test.R` | Full smoke test: installs packages from GitHub, runs end-to-end |
-| `ci-test.R` | Same test without the install step (used by CI after packages are pre-installed) |
+| `docker/Dockerfile` | Base image (`rocker/r-ver:4.4` + Python deps + `remotes`) |
+| `docker/test.R` | Full smoke test: installs packages from GitHub, runs end-to-end |
+| `docker/test-all.R` | Installs from mounted repo, runs all 82 tests (rzvec + rszvec) |
+| `docker/ci-test.R` | No-install variant used by CI after packages are pre-installed |
+| `run-tests.sh` | Host-side shortcut: builds the image if needed, then runs `test-all.R` |
 
-**Build the base image** (one-time):
+**Quickest way to run all tests locally:**
+
+```bash
+./run-tests.sh
+```
+
+**Build the base image manually** (one-time):
 
 ```bash
 docker build -t play-zvec-test docker/
 ```
 
-**Run the smoke test** (installs from GitHub each time):
+**Run the full smoke test** (installs from GitHub each time):
 
 ```bash
 docker run --rm play-zvec-test Rscript /dev/stdin < docker/test.R
