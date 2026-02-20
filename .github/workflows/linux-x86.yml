@@ -10,6 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -20,10 +23,13 @@ jobs:
       - name: Install system dependencies
         run: sudo apt-get install -y python3-venv python3-dev python3-pip
 
-      - name: Install remotes
-        run: Rscript --no-init-file -e "install.packages('remotes', repos='https://cloud.r-project.org')"
+      - name: Install R packages
+        run: |
+          Rscript --no-init-file -e "
+            install.packages('remotes', repos='https://cloud.r-project.org')
+            remotes::install_github('keneo/play-zvec/rzvec')
+            remotes::install_github('keneo/play-zvec/rszvec')
+          "
 
       - name: Run end-to-end test
-        run: Rscript --no-init-file docker/test.R
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: Rscript --no-init-file docker/ci-test.R
