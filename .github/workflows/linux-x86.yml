@@ -49,3 +49,29 @@ jobs:
       - name: Run end-to-end test
         if: steps.cpu_check.outputs.avx512 == 'true'
         run: Rscript docker/ci-test.R
+
+  test-intel:
+    runs-on: self-hosted
+    container:
+      image: rocker/r-ver:4.4
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_CONFIG_ACTIVE: "FALSE"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: apt-get update -qq && apt-get install -y python3-venv python3-dev python3-pip
+
+      - name: Install R packages
+        run: |
+          Rscript -e "
+            install.packages('remotes')
+            remotes::install_github('keneo/play-zvec/rzvec')
+            remotes::install_github('keneo/play-zvec/rszvec')
+          "
+
+      - name: Run end-to-end test
+        run: Rscript docker/ci-test.R
