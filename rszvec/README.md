@@ -8,7 +8,7 @@ no Python, results as plain `data.frame`s.
 
 ```r
 # install.packages("remotes")
-remotes::install_github("keneo/play-zvec/rszvec")
+remotes::install_github("keneo/zvec-r-bindings/rszvec")
 ```
 
 ### Python setup (one-time)

@@ -38,8 +38,8 @@ jobs:
         run: |
           Rscript -e "
             install.packages('remotes')
-            remotes::install_github('keneo/play-zvec/rzvec')
-            remotes::install_github('keneo/play-zvec/rszvec')
+            remotes::install_github('keneo/zvec-r-bindings/rzvec')
+            remotes::install_github('keneo/zvec-r-bindings/rszvec')
           "
 
       - name: Run end-to-end test

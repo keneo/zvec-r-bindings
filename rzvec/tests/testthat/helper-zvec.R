@@ -1,6 +1,6 @@
 library(reticulate)
 
-# Locate the rzvec-venv virtualenv. It lives in the play-zvec project root,
+# Locate the rzvec-venv virtualenv. It lives in the zvec-r-bindings project root,
 # which may be at different depths relative to getwd() depending on how tests
 # are invoked (devtools::test, testthat::test_dir, R CMD check, etc.).
 # rprojroot::find_root() searches upward for the .Rproj file, which is the

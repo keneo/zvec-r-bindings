@@ -13,7 +13,7 @@ SystemRequirements: Python (>= 3.10), zvec Python package
 Imports:
     rzvec
 Remotes:
-    keneo/play-zvec/rzvec
+    keneo/zvec-r-bindings/rzvec
 Suggests:
     testthat (>= 3.0.0),
     withr

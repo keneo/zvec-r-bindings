@@ -9,7 +9,7 @@ R bindings for the [zvec](https://pypi.org/project/zvec/) vector database, via
 
 ```r
 # install.packages("remotes")
-remotes::install_github("keneo/play-zvec/rzvec")
+remotes::install_github("keneo/zvec-r-bindings/rzvec")
 ```
 
 ### 2. Install the Python `zvec` package

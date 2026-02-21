@@ -1,11 +1,11 @@
-# play-zvec
+# zvec-r-bindings
 
 R bindings for the [zvec](https://pypi.org/project/zvec/) vector database.
 
 ## Quick start
 
 ```r
-remotes::install_github("keneo/play-zvec/rszvec")
+remotes::install_github("keneo/zvec-r-bindings/rszvec")
 
 library(rszvec)
 rszvec_install()   # one-time
@@ -25,10 +25,10 @@ rszvec_search(col, c(0.4, 0.3, 0.3, 0.1), n = 5)
 
 ## Contents
 
-| Package | Who it's for | What you get | Example |
+| R Package | Who it's for | What you get | Example |
 |---|---|---|---|
-| [`rzvec`](rzvec/) | R developers who want the full zvec API | Thin, idiomatic R wrappers over every zvec Python class and method | [`example`](play-rzvec-example.R) |
-| [`rszvec`](rszvec/) | R developers who want minimal ceremony | 5-function API; results come back as plain `data.frame`s | [`example`](play-rszvec-example.R) |
+| [`rzvec`](rzvec/) | R users who want the full zvec API | Thin, idiomatic R wrappers over every zvec Python class and method | [`example`](play-rzvec-example.R) |
+| [`rszvec`](rszvec/) | R users who want minimal ceremony | 5-function API; results come back as plain `data.frame`s | [`example`](play-rszvec-example.R) |
 
 ## Platform support
 

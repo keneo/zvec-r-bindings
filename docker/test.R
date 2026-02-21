@@ -1,4 +1,4 @@
-remotes::install_github("keneo/play-zvec/rszvec", quiet = TRUE)
+remotes::install_github("keneo/zvec-r-bindings/rszvec", quiet = TRUE)
 
 library(rszvec)
 rszvec_install()
