@@ -4,8 +4,6 @@ R bindings for the [zvec](https://pypi.org/project/zvec/) vector database.
 
 ## Quick start
 
-### rszvec — simplest path
-
 ```r
 remotes::install_github("keneo/play-zvec/rszvec")
 
@@ -23,35 +21,7 @@ rszvec_search(col, c(0.4, 0.3, 0.3, 0.1), n = 5)
 # 2 doc_1  0.23
 ```
 
-### rzvec — full API
 
-```r
-remotes::install_github("keneo/play-zvec/rzvec")
-
-library(rzvec)
-rzvec_install()   # one-time
-
-schema <- collection_schema(
-  "my_docs",
-  vectors = vector_schema("embedding", zvec_data_type()$VECTOR_FP32, 4L)
-)
-col <- create_collection("/tmp/my_collection", schema)
-
-col_insert(col,
-  zvec_doc("doc_1", vectors = list(embedding = c(0.1, 0.2, 0.3, 0.4))),
-  zvec_doc("doc_2", vectors = list(embedding = c(0.2, 0.3, 0.4, 0.1)))
-)
-
-col_query(col, vector_query("embedding", vector = c(0.4, 0.3, 0.3, 0.1)), topk = 5L)
-```
-
-## Example scripts
-
-| Script | Abstraction level |
-|---|---|
-| [`play-zvec-example.R`](play-zvec-example.R) | Raw `reticulate` + Python zvec API |
-| [`play-rzvec-example.R`](play-rzvec-example.R) | `rzvec` R package |
-| [`play-rszvec-example.R`](play-rszvec-example.R) | `rszvec` R package |
 
 ## Contents
 
