@@ -1,7 +1,6 @@
 # play-zvec
 
-R bindings for the [zvec](https://pypi.org/project/zvec/) vector database at
-three levels of abstraction.
+R bindings for the [zvec](https://pypi.org/project/zvec/) vector database.
 
 ## Quick start
 
@@ -56,13 +55,10 @@ col_query(col, vector_query("embedding", vector = c(0.4, 0.3, 0.3, 0.1)), topk =
 
 ## Contents
 
-| Package | Who it's for | What you get |
-|---|---|---|
-| [`rzvec`](rzvec/) | R developers who want the full zvec API | Thin, idiomatic R wrappers over every zvec Python class and method |
-| [`rszvec`](rszvec/) | R developers who want minimal ceremony | 5-function API; results come back as plain `data.frame`s |
-
-Raw Python access via `reticulate` is also demonstrated in
-[`play-zvec-example.R`](play-zvec-example.R).
+| Package | Who it's for | What you get | Example |
+|---|---|---|---|
+| [`rzvec`](rzvec/) | R developers who want the full zvec API | Thin, idiomatic R wrappers over every zvec Python class and method | [`example`](play-rzvec-example.R) |
+| [`rszvec`](rszvec/) | R developers who want minimal ceremony | 5-function API; results come back as plain `data.frame`s | [`example`](play-rszvec-example.R) |
 
 ## Platform support
 
@@ -70,27 +66,11 @@ Determined by the `zvec` Python package, which ships binary wheels for:
 
 | Platform | x86_64 | arm64 |
 |---|---|---|
-| Linux | ⚠️ Intel + AVX-512 only | ✅ |
+| Linux |  ✅ | ✅ |
 | macOS | — | ✅ |
 | Windows | — | — |
 
 Python 3.10, 3.11, and 3.12 are supported. Python 3.9 and earlier are not.
-
-## Known issues
-
-The Linux x86_64 wheel is currently compiled by Alibaba with Intel-specific instructions and
-requires AVX-512 support. It will crash with SIGILL on AMD processors and older
-Intel CPUs. See issue https://github.com/alibaba/zvec/issues/128 and fix 
-https://github.com/alibaba/zvec/pull/137
-
-ARM64 Linux has no such restriction.
-
-On Linux, the following system packages must be installed before calling
-`rszvec_install()` / `rzvec_install()`:
-
-```bash
-sudo apt install python3-venv python3-dev python3-pip
-```
 
 ## Docker smoke test
 
@@ -106,7 +86,7 @@ scripts that run inside it, for validating the packages on Linux ARM64.
 | `run-tests-in-docker.sh` | Builds the image if needed, then runs `test-all.R` inside it |
 | `run-tests-local.sh` | Runs both test suites directly (no Docker; uses local renv + venv) |
 
-**Run tests in Docker** (Linux ARM64, clean environment):
+**Run tests in Docker** (Linux, clean environment):
 
 ```bash
 ./run-tests-in-docker.sh
@@ -135,6 +115,11 @@ Or mount the repo to avoid a GitHub download:
 ```bash
 docker run --rm -v $(pwd):/repo play-zvec-test Rscript /repo/docker/test.R
 ```
+
+## Acknowledgments
+
+- [zvec](https://github.com/alibaba/zvec) - The underlying vector database
+- [Alibaba Proxima](https://github.com/alibaba/proxima) - The core vector search engine
 
 ## License
 

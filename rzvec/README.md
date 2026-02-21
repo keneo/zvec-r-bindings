@@ -71,12 +71,6 @@ results <- col_query(col,
 | Maintenance | `col_flush()`, `col_optimize()`, `col_schema()`, `col_stats()` |
 | Setup | `rzvec_install()` |
 
-## Platform note
-
-The Linux x86_64 wheel for `zvec` requires AVX-512 (Intel only). It will crash
-with SIGILL on AMD processors. Linux ARM64 and macOS ARM64 have no such
-restriction.
-
 ## See also
 
 [`rszvec`](../rszvec/) — a higher-level wrapper around `rzvec` that hides all
