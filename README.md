@@ -49,17 +49,18 @@ scripts that run inside it, for validating the packages on Linux ARM64.
 
 | File | Purpose |
 |---|---|
-| `docker/Dockerfile` | Base image (`rocker/r-ver:4.4` + Python deps + `remotes`) |
+| `docker/Dockerfile` | Base image with R deps and Python venv baked in (layer-cached) |
 | `docker/test.R` | Full smoke test: installs packages from GitHub, runs end-to-end |
-| `docker/test-all.R` | Installs from mounted repo, runs all 82 tests (rzvec + rszvec) |
+| `docker/test-all.R` | Installs rzvec/rszvec from mounted repo, runs all 82 tests |
 | `docker/ci-test.R` | No-install variant used by CI after packages are pre-installed |
-| `run-tests-in-docker.sh` | Builds the image if needed, then runs `test-all.R` inside it |
+| `run-tests-in-docker.sh` | Builds the image (layer cache decides what to rebuild), then runs `test-all.R` |
 | `run-tests-local.sh` | Runs both test suites directly (no Docker; uses local renv + venv) |
 
 **Run tests in Docker** (Linux, clean environment):
 
 ```bash
-./run-tests-in-docker.sh
+./run-tests-in-docker.sh            # uses layer cache — only rebuilds changed layers
+./run-tests-in-docker.sh --rebuild   # full rebuild, ignores Docker cache
 ```
 
 **Run tests locally** (faster, uses your installed packages):
@@ -68,10 +69,10 @@ scripts that run inside it, for validating the packages on Linux ARM64.
 ./run-tests-local.sh
 ```
 
-**Build the base image manually** (one-time):
+**Build the base image manually**:
 
 ```bash
-docker build -t play-zvec-test docker/
+docker build -t play-zvec-test -f docker/Dockerfile .
 ```
 
 **Run the full smoke test** (installs from GitHub each time):
