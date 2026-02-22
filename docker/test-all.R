@@ -1,8 +1,9 @@
-cat("Installing testthat, rzvec and rszvec from /repo...\n")
-install.packages("testthat", repos = "https://cloud.r-project.org", quiet = TRUE)
-remotes::install_local("/repo/rzvec",  quiet = TRUE, upgrade = "never")
-remotes::install_local("/repo/rszvec", quiet = TRUE, upgrade = "never")
+# R deps already in image — just install local packages (fast, no dep download)
+cat("Installing rzvec and rszvec from /repo...\n")
+remotes::install_local("/repo/rzvec",  quick = TRUE, upgrade = "never", quiet = TRUE)
+remotes::install_local("/repo/rszvec", quick = TRUE, upgrade = "never", quiet = TRUE)
 
+# Python venv pre-built in image — rszvec_install() detects it and skips
 library(rszvec)
 rszvec_install()
 

@@ -1,0 +1,8 @@
+# Send only what the Dockerfile needs to the build context.
+# Layer-caching keys: DESCRIPTION files for R deps.
+# Runtime: docker/ scripts.
+
+*
+!rzvec/DESCRIPTION
+!rszvec/DESCRIPTION
+!docker/
