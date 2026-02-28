@@ -21,7 +21,16 @@
 #' @return Invisibly `NULL`.
 #' @export
 rzvec_install <- function(envname = "rzvec-venv", ...) {
-  pkg <- if (.linux_x86_without_avx512()) "zvec==0.2.1b0" else "zvec"
+  pkg <- if (.linux_x86_without_avx512()) {
+    warning(
+      "AVX-512 not detected. Installing zvec==0.2.1b0 (AVX2-only beta).\n",
+      "See: https://github.com/alibaba/zvec/issues/185",
+      call. = FALSE
+    )
+    "zvec==0.2.1b0"
+  } else {
+    "zvec"
+  }
 
   venv_dir <- file.path(tools::R_user_dir("rzvec", "cache"), envname)
   reticulate::virtualenv_create(venv_dir)
