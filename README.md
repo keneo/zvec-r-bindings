@@ -1,5 +1,7 @@
 # zvec-r-bindings
 
+[![CI](https://github.com/keneo/zvec-r-bindings/actions/workflows/ci.yml/badge.svg)](https://github.com/keneo/zvec-r-bindings/actions/workflows/ci.yml)
+
 R bindings for the [zvec](https://pypi.org/project/zvec/) vector database.
 
 ## Quick start
