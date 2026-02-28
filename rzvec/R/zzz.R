@@ -11,9 +11,9 @@
 #' Creates a virtualenv in the user cache directory and installs the `zvec`
 #' Python package into it, then activates it for the current session.
 #'
-#' On Linux x86_64, the pre-built wheel requires AVX-512. Installation will
-#' fail with a clear error on CPUs that lack it (AMD, older Intel). See
-#' <https://github.com/alibaba/zvec/issues/128>.
+#' On Linux x86_64 without AVX-512, the AVX2-only beta (`zvec==0.2.1b0`) is
+#' installed automatically. See
+#' <https://github.com/alibaba/zvec/issues/185>.
 #'
 #' @param envname Name of the virtualenv to create. Defaults to `"rzvec-venv"`.
 #' @param ... Additional arguments passed to [reticulate::py_install()].
@@ -21,21 +21,11 @@
 #' @return Invisibly `NULL`.
 #' @export
 rzvec_install <- function(envname = "rzvec-venv", ...) {
-  # TODO: remove this check once https://github.com/alibaba/zvec/issues/128
-  # is fixed and zvec ships a wheel that does not require AVX-512.
-  if (.linux_x86_without_avx512()) {
-    stop(
-      "zvec is not supported on this CPU.\n",
-      "The Linux x86_64 wheel requires AVX-512, which is not available here.\n",
-      "Supported: Linux x86_64 with AVX-512 (Intel Skylake-SP+), Linux ARM64, macOS ARM64.\n",
-      "See: https://github.com/alibaba/zvec/issues/128",
-      call. = FALSE
-    )
-  }
+  pkg <- if (.linux_x86_without_avx512()) "zvec==0.2.1b0" else "zvec"
 
   venv_dir <- file.path(tools::R_user_dir("rzvec", "cache"), envname)
   reticulate::virtualenv_create(venv_dir)
-  reticulate::py_install("zvec", envname = venv_dir, method = "virtualenv", ...)
+  reticulate::py_install(pkg, envname = venv_dir, method = "virtualenv", ...)
   reticulate::use_virtualenv(venv_dir, required = TRUE)
   invisible(NULL)
 }

@@ -4,12 +4,10 @@
 \alias{rzvec_install}
 \title{Install zvec Python package}
 \usage{
-rzvec_install(envname = "rzvec-venv", method = "auto", ...)
+rzvec_install(envname = "rzvec-venv", ...)
 }
 \arguments{
 \item{envname}{Name of the virtualenv to create. Defaults to `"rzvec-venv"`.}
-
-\item{method}{Passed to [reticulate::py_install()].}
 
 \item{...}{Additional arguments passed to [reticulate::py_install()].}
 }
@@ -19,4 +17,8 @@ Invisibly `NULL`.
 \description{
 Creates a virtualenv in the user cache directory and installs the `zvec`
 Python package into it, then activates it for the current session.
+
+On Linux x86_64 without AVX-512, the AVX2-only beta (`zvec==0.2.1b0`) is
+installed automatically. See
+\url{https://github.com/alibaba/zvec/issues/185}.
 }
